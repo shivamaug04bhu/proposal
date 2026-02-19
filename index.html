@@ -1,28 +1,41 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will You Marry Me?</title>
+
   <style>
     body {
       height: 100vh;
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
       background: #ffe6f0;
+      overflow: hidden;
     }
 
     .container {
       text-align: center;
       position: relative;
+      width: 100%;
+      max-width: 350px;
+      height: 300px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
     }
 
     button {
-      padding: 12px 25px;
+      padding: 14px 30px;
       font-size: 18px;
       margin: 10px;
       cursor: pointer;
-      border-radius: 8px;
+      border-radius: 30px;
       border: none;
     }
 
@@ -34,10 +47,12 @@
     #no {
       background: #ccc;
       position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     #result {
-      font-size: 30px;
+      font-size: 28px;
       margin-top: 20px;
       display: none;
     }
@@ -46,11 +61,12 @@
 <body>
 
   <div class="container">
-    <h1><strong style="color:#ccc">Adya Ji</strong>, Will you marry me? 💍</h1>
-    <button id="yes">Yes</button>
-    <button id="no">No</button>
+    <h1><strong style="color:#ff4d88">Adya Ji</strong>,<br> Will you marry me? 💍</h1>
 
-    <div id="result">🎉😍 Yay! I love you! 💖</div>
+    <button id="yes">Yes 😍</button>
+    <button id="no">No 🙈</button>
+
+    <div id="result">🎉😍 Yay! I love you! 💖💍</div>
   </div>
 
   <script>
@@ -58,19 +74,19 @@
     const yesBtn = document.getElementById("yes");
     const result = document.getElementById("result");
 
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 400;
-      const y = Math.random() * 400;
+    function moveNoButton() {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
-    });
+    }
 
-    yesBtn.addEventListener("click", () => {
-      result.style.display = "block";
-      noBtn.style.display = "none";
-      yesBtn.style.display = "none";
-    });
-  </script>
+    // Works on desktop
+    noBtn.addEventListener("mouseover", moveNoButton);
 
-</body>
-</html>
+    // Works on mobile
+    noBtn.addEventListener("touchstart", moveNoBu

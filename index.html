@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Marry Me?</title>
+  <title>Will You Marry Me? 💍</title>
 
   <style>
     body {
-      height: 100vh;
       margin: 0;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
-      background: #ffe6f0;
+      background: linear-gradient(135deg, #ffe6f0, #ffd6e8);
       overflow: hidden;
     }
 
     .container {
       text-align: center;
-      position: relative;
+      padding: 20px;
       width: 100%;
-      max-width: 350px;
-      height: 300px;
+      max-width: 360px;
+      position: relative;
     }
 
     h1 {
@@ -31,17 +31,19 @@
     }
 
     button {
-      padding: 14px 30px;
+      padding: 14px 32px;
       font-size: 18px;
       margin: 10px;
       cursor: pointer;
       border-radius: 30px;
       border: none;
+      transition: all 0.2s ease;
     }
 
     #yes {
       background: #ff4d88;
       color: white;
+      box-shadow: 0 4px 10px rgba(255,77,136,0.4);
     }
 
     #no {
@@ -53,40 +55,81 @@
 
     #result {
       font-size: 28px;
-      margin-top: 20px;
+      margin-top: 30px;
       display: none;
+      animation: pop 1s infinite;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1><strong style="color:#ff4d88">Adya Ji</strong>,<br> Will you marry me? 💍</h1>
+  <div class="container" id="box">
+    <h1><strong style="color:#ff4d88">Adya Ji</strong>,<br>Will you marry me? 💍❤️</h1>
 
     <button id="yes">Yes 😍</button>
-    <button id="no">No 🙈</button>
+    <button id="no">No 😐</button>
 
-    <div id="result">🎉😍 Yay! I love you! 💖💍</div>
+    <div id="result">🎉😍 Yay!!! I love you 💖💍</div>
   </div>
 
   <script>
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const result = document.getElementById("result");
+    const box = document.getElementById("box");
 
-    function moveNoButton() {
-      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+    const noMessages = [
+      "No 😐",
+      "Are you sure? 😶",
+      "Really sure? 🥺",
+      "Think again 😢",
+      "Okay fine… 😔"
+    ];
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+    let tapCount = 0;
+    const isTouch = "ontouchstart" in window;
 
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+    // 🖥 Desktop: NO runs away from cursor
+    if (!isTouch) {
+      noBtn.addEventListener("mouseover", () => {
+        const boxRect = box.getBoundingClientRect();
+
+        const maxX = boxRect.width - noBtn.offsetWidth;
+        const maxY = boxRect.height - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+      });
     }
 
-    // Works on desktop
-    noBtn.addEventListener("mouseover", moveNoButton);
+    // 📱 Mobile: NO changes text & disappears
+    if (isTouch) {
+      noBtn.addEventListener("click", () => {
+        if (tapCount < noMessages.length - 1) {
+          tapCount++;
+          noBtn.textContent = noMessages[tapCount];
+        } else {
+          noBtn.style.display = "none";
+        }
+      });
+    }
 
-    // Works on mobile
-    noBtn.addEventListener("touchstart", moveNoBu
+    // YES button
+    yesBtn.addEventListener("click", () => {
+      result.style.display = "block";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>

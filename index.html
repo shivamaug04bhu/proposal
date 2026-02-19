@@ -1,133 +1,74 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Marry Me? 💍</title>
-
+  <title>Will You Marry Me?</title>
   <style>
     body {
-      margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffe6f0, #ffd6e8);
-      overflow: hidden;
+      background: #ffe6f0;
     }
 
     .container {
       text-align: center;
-      padding: 20px;
-      width: 100%;
-      max-width: 360px;
       position: relative;
     }
 
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-    }
-
     button {
-      padding: 14px 32px;
+      padding: 12px 25px;
       font-size: 18px;
       margin: 10px;
       cursor: pointer;
-      border-radius: 30px;
+      border-radius: 8px;
       border: none;
-      transition: all 0.2s ease;
     }
 
     #yes {
       background: #ff4d88;
       color: white;
-      box-shadow: 0 4px 10px rgba(255,77,136,0.4);
     }
 
     #no {
       background: #ccc;
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
     }
 
     #result {
-      font-size: 28px;
-      margin-top: 30px;
+      font-size: 30px;
+      margin-top: 20px;
       display: none;
-      animation: pop 1s infinite;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <div class="container" id="box">
-    <h1><strong style="color:#ff4d88">Adya Ji</strong>,<br>Will you marry me? 💍❤️</h1>
+  <div class="container">
+    <h1><strong style="color:#ccc">Adya Ji</strong>, Will you marry me? 💍</h1>
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
 
-    <button id="yes">Yes 😍</button>
-    <button id="no">No 😐</button>
-
-    <div id="result">🎉😍 Yay!!! I love you 💖💍</div>
+    <div id="result">🎉😍 Yay! I love you! 💖</div>
   </div>
 
   <script>
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const result = document.getElementById("result");
-    const box = document.getElementById("box");
 
-    const noMessages = [
-      "No 😐",
-      "Are you sure? 😶",
-      "Really sure? 🥺",
-      "Think again 😢",
-      "Okay fine… 😔"
-    ];
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 400;
+      const y = Math.random() * 400;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
 
-    let tapCount = 0;
-    const isTouch = "ontouchstart" in window;
-
-    // 🖥 Desktop: NO runs away from cursor
-    if (!isTouch) {
-      noBtn.addEventListener("mouseover", () => {
-        const boxRect = box.getBoundingClientRect();
-
-        const maxX = boxRect.width - noBtn.offsetWidth;
-        const maxY = boxRect.height - noBtn.offsetHeight;
-
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
-
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-      });
-    }
-
-    // 📱 Mobile: NO changes text & disappears
-    if (isTouch) {
-      noBtn.addEventListener("click", () => {
-        if (tapCount < noMessages.length - 1) {
-          tapCount++;
-          noBtn.textContent = noMessages[tapCount];
-        } else {
-          noBtn.style.display = "none";
-        }
-      });
-    }
-
-    // YES button
     yesBtn.addEventListener("click", () => {
       result.style.display = "block";
-      yesBtn.style.display = "none";
       noBtn.style.display = "none";
+      yesBtn.style.display = "none";
     });
   </script>
 
